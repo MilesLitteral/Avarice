@@ -12,7 +12,7 @@ text and edit your work and then out put it to a relevant format for application
 - Prettier appearance.
 - working examples.
 - ImageDiff Integration
-- XML Parser (currently supports hgscript) For more info see [HGScripts Repo](https://github.com/HungryGhostsFanTranslation/hgscripts)
+- XML Parser (currently targeting support for hgscript) For more info see [HGScripts Repo](https://github.com/HungryGhostsFanTranslation/hgscripts)
 
 ## API Documentation
 See the generated docs on [Hackage](https://hackage.haskell.org/package/monomer-hagrid), for more information on Hagrid.
