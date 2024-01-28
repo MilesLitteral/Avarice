@@ -18,5 +18,5 @@ text and edit your work and then out put it to a relevant format for application
 See the generated docs on [Hackage](https://hackage.haskell.org/package/monomer-hagrid), for more information on Hagrid.
 
 ## How To Run
-`stack build`
-`stack run example-basic`
+* `stack build`
+* `stack run example-basic`
