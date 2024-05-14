@@ -1,17 +1,17 @@
 cabal-version: 2.0
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.35.2.
 --
 -- see: https://github.com/sol/hpack
 
-name:           monomer-hagrid
+name:           avarice
 version:        0.3.1.2
-synopsis:       A datagrid widget for the Monomer library.
-description:    A configurable Monomer widget that shows a scrollable grid of data.
-category:       GUI
-homepage:       https://github.com/Dretch/monomer-hagrid#readme
-bug-reports:    https://github.com/Dretch/monomer-hagrid/issues
-maintainer:     garethdanielsmith@gmail.com
+synopsis:       A AIO Translation and .iso Editing Library
+description:    A tool for translating video games and applications .iso via scripts and ImageDiff
+category:       Application
+homepage:       https://github.com/MilesLitteral/avarice
+bug-reports:    https://github.com/MilesLitteral/avarice/issues
+maintainer:     Mandaloe2@gmail.com
 license:        MIT
 license-file:   LICENSE
 build-type:     Simple
@@ -22,26 +22,40 @@ extra-doc-files:
 
 source-repository head
   type: git
-  location: https://github.com/Dretch/monomer-hagrid
+  location: https://github.com/MilesLitteral/avarice
 
 flag examples
   description: Whether to build the example executables. Off by default because they are not usually wanted.
   manual: True
   default: False
 
+flag iso
+  description: Build executables that demonstrate ImageDiff functionality
+  manual: True
+  default: False
+
 library
   exposed-modules:
-      Monomer.Hagrid
+      Avarice
+      Avarice.Data
+      Avarice.Data.Script
+      Avarice.Generic
+      Avarice.Generic.Prisms
+      Avarice.Hagrid
+      Avarice.Parser
+      Avarice.Parser.STM
+      Avarice.Parser.Xml
   other-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   autogen-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   hs-source-dirs:
       src
   default-extensions:
       DisambiguateRecordFields
       DuplicateRecordFields
       EmptyCase
+      FlexibleInstances
       FlexibleContexts
       GADTs
       LambdaCase
@@ -52,28 +66,33 @@ library
       OverloadedStrings
       RankNTypes
       ScopedTypeVariables
-  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -optl-mconsole -optl-mwindows
   build-depends:
       base >=4.7 && <5
     , containers
     , data-default-class
     , lens
     , monomer >=1.5.1.0 && <1.7
+    , mtl
+    , stm
     , text
+    , tinyfiledialogs
+    , xml
   default-language: Haskell2010
 
 executable example-basic
   main-is: Main.hs
   other-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   autogen-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   hs-source-dirs:
       examples/basic
   default-extensions:
       DisambiguateRecordFields
       DuplicateRecordFields
       EmptyCase
+      FlexibleInstances
       FlexibleContexts
       GADTs
       LambdaCase
@@ -84,34 +103,36 @@ executable example-basic
       OverloadedStrings
       RankNTypes
       ScopedTypeVariables
-  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -optl-mconsole -optl-mwindows -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      avarice
+    , base >=4.7 && <5
     , containers
     , data-default-class
     , lens
     , monomer >=1.5.1.0 && <1.7
-    , monomer-hagrid
+    , mtl
+    , stm
     , text
     , time
+    , tinyfiledialogs
+    , xml
+  buildable: True
   default-language: Haskell2010
-  --if flag(examples)
-  --  buildable: True
-  --else
-  --  buildable: False
 
 executable example-big-grid
   main-is: Main.hs
   other-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   autogen-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   hs-source-dirs:
       examples/big-grid
   default-extensions:
       DisambiguateRecordFields
       DuplicateRecordFields
       EmptyCase
+      FlexibleInstances
       FlexibleContexts
       GADTs
       LambdaCase
@@ -122,17 +143,65 @@ executable example-big-grid
       OverloadedStrings
       RankNTypes
       ScopedTypeVariables
-  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -optl-mconsole -optl-mwindows -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      avarice
+    , base >=4.7 && <5
     , containers
     , data-default-class
     , lens
     , monomer >=1.5.1.0 && <1.7
-    , monomer-hagrid
+    , mtl
+    , stm
     , text
+    , tinyfiledialogs
+    , xml
   default-language: Haskell2010
   if flag(examples)
+    buildable: True
+  else
+    buildable: False
+
+executable example-iso
+  main-is: Main.hs
+  other-modules:
+      Paths_avarice
+  autogen-modules:
+      Paths_avarice
+  hs-source-dirs:
+      examples/iso
+  default-extensions:
+      DisambiguateRecordFields
+      DuplicateRecordFields
+      EmptyCase
+      FlexibleInstances
+      FlexibleContexts
+      GADTs
+      LambdaCase
+      NamedFieldPuns
+      NoFieldSelectors
+      NumericUnderscores
+      OverloadedRecordDot
+      OverloadedStrings
+      RankNTypes
+      ScopedTypeVariables
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -optl-mconsole -optl-mwindows -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      avarice
+    , base >=4.7 && <5
+    , containers
+    , data-default-class
+    , lens
+    , monomer >=1.5.1.0 && <1.7
+    , mtl
+    , stm
+    , text
+    , time
+    , tinyfiledialogs
+    , xml
+  buildable: True
+  default-language: Haskell2010
+  if flag(iso)
     buildable: True
   else
     buildable: False
@@ -140,15 +209,16 @@ executable example-big-grid
 executable example-resizing-cells
   main-is: Main.hs
   other-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   autogen-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   hs-source-dirs:
       examples/resizing-cells
   default-extensions:
       DisambiguateRecordFields
       DuplicateRecordFields
       EmptyCase
+      FlexibleInstances
       FlexibleContexts
       GADTs
       LambdaCase
@@ -159,16 +229,20 @@ executable example-resizing-cells
       OverloadedStrings
       RankNTypes
       ScopedTypeVariables
-  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -optl-mconsole -optl-mwindows -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      avarice
+    , base >=4.7 && <5
     , containers
     , data-default-class
     , lens
     , monomer >=1.5.1.0 && <1.7
-    , monomer-hagrid
+    , mtl
     , random
+    , stm
     , text
+    , tinyfiledialogs
+    , xml
   default-language: Haskell2010
   if flag(examples)
     buildable: True
@@ -181,15 +255,16 @@ test-suite spec
   other-modules:
       Monomer.HagridSpec
       Monomer.TestUtil
-      Paths_monomer_hagrid
+      Paths_avarice
   autogen-modules:
-      Paths_monomer_hagrid
+      Paths_avarice
   hs-source-dirs:
       test
   default-extensions:
       DisambiguateRecordFields
       DuplicateRecordFields
       EmptyCase
+      FlexibleInstances
       FlexibleContexts
       GADTs
       LambdaCase
@@ -200,9 +275,10 @@ test-suite spec
       OverloadedStrings
       RankNTypes
       ScopedTypeVariables
-  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -optl-mconsole -optl-mwindows -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      avarice
+    , base >=4.7 && <5
     , bytestring
     , containers
     , data-default
@@ -210,9 +286,10 @@ test-suite spec
     , hspec ==2.*
     , lens
     , monomer >=1.5.1.0 && <1.7
-    , monomer-hagrid
     , mtl
     , stm
     , text
+    , tinyfiledialogs
+    , xml
   default-language: Haskell2010
   build-tool-depends: hspec-discover:hspec-discover == 2.*

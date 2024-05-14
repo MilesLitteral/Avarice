@@ -1,13 +1,13 @@
-name:                monomer-hagrid
+name:                avarice
 version:             0.3.1.2
-synopsis:            A datagrid widget for the Monomer library.
-description:         A configurable Monomer widget that shows a scrollable grid of data.
-github:              Dretch/monomer-hagrid
-homepage:            https://github.com/Dretch/monomer-hagrid#readme
-bug-reports:         https://github.com/Dretch/monomer-hagrid/issues
+synopsis:            A AIO Translation and .iso Editing Library
+description:         A tool for translating video games and applications .iso via scripts and ImageDiff
+github:              MilesLitteral/avarice
+homepage:            https://github.com/MilesLitteral/avarice
+bug-reports:         https://github.com/MilesLitteral/avarice/issues
 license:             MIT
-category:            GUI
-maintainer:          garethdanielsmith@gmail.com
+category:            Application
+maintainer:          Mandaloe2@gmail.com
 
 extra-doc-files:
 - ChangeLog.md
@@ -22,13 +22,20 @@ dependencies:
 - lens
 - monomer >= 1.5.1.0 && < 1.7
 - text
+- mtl
 # data processing
 - xml
+- stm
+#OS Handling
+- tinyfiledialogs
 
 default-extensions:
   - DisambiguateRecordFields
   - DuplicateRecordFields
   - EmptyCase
+  - FlexibleInstances 
+  #- GeneralizedNewtypeDeriving
+  #- DeriveAnyClass
   - FlexibleContexts
   - GADTs
   - LambdaCase
@@ -45,12 +52,16 @@ flags:
     description: Whether to build the example executables. Off by default because they are not usually wanted.
     manual: true
     default: false
+  iso:
+    description: Build executables that demonstrate ImageDiff functionality
+    manual: true
+    default: false
 
-ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -optl-mconsole -optl-mwindows
 
 library:
   source-dirs: src
-  generated-other-modules: Paths_monomer_hagrid
+  generated-other-modules: Paths_avarice
 
 executables:
   example-basic:
@@ -59,7 +70,7 @@ executables:
     buildable: true
     ghc-options: -threaded -rtsopts -with-rtsopts=-N
     dependencies:
-      - monomer-hagrid
+      - avarice
       - time
     #when:
     #  - condition: flag(examples)
@@ -67,12 +78,27 @@ executables:
     #      buildable: true
     #    else:
     #      buildable: false
+  example-iso:
+    source-dirs: examples/iso
+    main: Main.hs
+    buildable: true
+    ghc-options: -threaded -rtsopts -with-rtsopts=-N
+    dependencies:
+      - avarice
+      - time
+    when:
+     - condition: flag(iso)
+       then:
+         buildable: true
+       else:
+         buildable: false
   example-big-grid:
     source-dirs: examples/big-grid
     main: Main.hs
     ghc-options: -threaded -rtsopts -with-rtsopts=-N
     dependencies:
-      - monomer-hagrid
+      - avarice
+      - tinyfiledialogs
     when:
       - condition: flag(examples)
         then:
@@ -84,7 +110,7 @@ executables:
     main: Main.hs
     ghc-options: -threaded -rtsopts -with-rtsopts=-N
     dependencies:
-      - monomer-hagrid
+      - avarice
       - random
     when:
       - condition: flag(examples)
@@ -100,6 +126,6 @@ tests:
     dependencies:
       - bytestring
       - data-default
-      - monomer-hagrid
+      - avarice
       - mtl
       - stm

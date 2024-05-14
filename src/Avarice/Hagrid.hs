@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -Wno-name-shadowing #-}
 
 -- | A datagrid widget for the Monomer UI library.
-module Monomer.Hagrid
+module Avarice.Hagrid
   ( -- * Types
     HagridCfg,
     Column (..),
@@ -1009,7 +1009,7 @@ textColumn ::
   Column e a
 textColumn name get = (defaultColumn name widget) {sortKey}
   where
-    widget = LabelWidget (const get)
+    widget  = LabelWidget (const get)
     sortKey = SortWith get
 
 -- | Creates a column that displays the result of calling @'show'@ on a value, and is sortable by the value.
@@ -1048,7 +1048,7 @@ defaultColumn name widget =
       paddingW = defaultColumnPadding,
       paddingH = defaultColumnPadding,
       resizeHandler = Nothing,
-      sortHandler = Nothing
+      sortHandler   = Nothing
     }
 
 cellWidget ::
