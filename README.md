@@ -25,6 +25,9 @@ A datagrid widget for the [Monomer](https://github.com/fjvallarino/monomer) libr
 
 ## Possible Future Goals
 - Explore providing an API where current sort/column widths/etc are stored in the parent model and updated by hagrid via a lens. This may remove some complexity around merging and the specification of initial sorts/column widths.
+- working examples.
+- ImageDiff Integration
+- XML Parser (currently targeting support for hgscript) For more info see [HGScripts Repo](https://github.com/HungryGhostsFanTranslation/hgscripts)
 
 ## API Documentation
 
@@ -49,3 +52,6 @@ stack build --flag monomer-hagrid:examples
 # Should use Ormolu 0.7.1.0
 ormolu --mode inplace $(find . -name '*.hs')
 ```
+## How To Run
+* `stack build`
+* `stack run example-basic`
